@@ -1,9 +1,6 @@
 package com.example.eatgo.service;
 
-import com.example.eatgo.domain.MenuItem;
-import com.example.eatgo.domain.MenuItemRepository;
-import com.example.eatgo.domain.Restaurant;
-import com.example.eatgo.domain.RestaurantRepository;
+import com.example.eatgo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +22,8 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id){
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null );
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RestaurantNotFoundException(id));
 
         List<MenuItem> menuItems = menuRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(menuItems);
