@@ -14,8 +14,9 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public Review addReview(Review review){
+    public Review addReview(Long restaurantId, Review review){
         // TODO : add review
+        review.setRestaurantId(restaurantId);
         return reviewRepository.save(review);
     }
 }

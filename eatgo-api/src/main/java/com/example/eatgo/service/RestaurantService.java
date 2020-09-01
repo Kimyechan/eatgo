@@ -10,15 +10,18 @@ import java.util.List;
 @Service
 public class RestaurantService {
 
-    @Autowired
     private RestaurantRepository restaurantRepository;
 
-    @Autowired
     private MenuItemRepository menuRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository) {
+    private ReviewRepository reviewRepository;
+
+    public RestaurantService(RestaurantRepository restaurantRepository,
+                             MenuItemRepository menuItemRepository,
+                             ReviewRepository reviewRepository) {
         this.restaurantRepository = restaurantRepository;
         this.menuRepository = menuItemRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public Restaurant getRestaurant(Long id){
@@ -27,6 +30,9 @@ public class RestaurantService {
 
         List<MenuItem> menuItems = menuRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(menuItems);
+
+        List<Review> reviews = reviewRepository.findAllByRestaurantId(id);
+        restaurant.setReviews(reviews);
 
         return restaurant;
     }

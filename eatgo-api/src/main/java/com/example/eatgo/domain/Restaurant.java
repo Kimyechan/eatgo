@@ -31,6 +31,10 @@ public class Restaurant {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<MenuItem> menuItems;
 
+    @Transient
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Review> reviews;
+
     public Restaurant(String name, String address) {
         this.name = name;
         this.address = address;
@@ -56,6 +60,11 @@ public class Restaurant {
 //        menuItems.add(menuItem);
 //    }
 
+    public void updateInformation(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public void setMenuItems(List<MenuItem> menuItems) {
 //        if(menuItems == null){
 //            this.menuItems = new ArrayList<>();
@@ -66,8 +75,7 @@ public class Restaurant {
         this.menuItems = new ArrayList<>(menuItems);
     }
 
-    public void updateInformation(String name, String address) {
-        this.name = name;
-        this.address = address;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = new ArrayList<>(reviews);
     }
 }

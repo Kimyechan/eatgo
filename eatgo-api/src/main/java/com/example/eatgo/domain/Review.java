@@ -1,9 +1,6 @@
 package com.example.eatgo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,11 +15,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Review {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    private Long restaurantId;
 
     @NotEmpty
     private String name;
