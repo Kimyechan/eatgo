@@ -24,7 +24,7 @@ public class  MenuitemService {
         }
     }
 
-    private void update(Long restaurantId, MenuItem menuItem) {
+    public void update(Long restaurantId, MenuItem menuItem) {
         if(menuItem.isDestroy()){
             // TODO : delete
             menuItemRepository.deleteById(menuItem.getId());
@@ -33,5 +33,9 @@ public class  MenuitemService {
 
         menuItem.setRestaurantId(restaurantId);
         menuItemRepository.save(menuItem);
+    }
+
+    public List<MenuItem> getMenuItems(Long restaurantId){
+        return menuItemRepository.findAllByRestaurantId(restaurantId);
     }
 }
