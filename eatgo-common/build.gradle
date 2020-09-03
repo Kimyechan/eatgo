@@ -33,6 +33,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-//implementation project error solve
+
+/**
+ *  implementation project error solve
+ *  to build all project at the same time
+ *  gradle command
+ *  ./gradlew build ./gradlew test ./gradlew check : all project execute
+ */
 bootJar { enabled = false }
 jar { enabled = true }
