@@ -38,13 +38,14 @@ public class RestaurantServiceTest {
 //        Restaurant restaurant = new Restaurant(1004L, "bab zip", "Seoul");
         Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
+                .categoryId(1L)
                 .name("bab zip")
                 .address("Seoul")
                 .menuItems(new ArrayList<MenuItem>())
                 .reviews(new ArrayList<Review>())
                 .build();
         restaurants.add(restaurant);
-        given(restaurantRepository.findAllByAddressContaining("Seoul")).willReturn(restaurants);
+        given(restaurantRepository.findAllByAddressContainingAndCategoryId("Seoul", 1L)).willReturn(restaurants);
         given(restaurantRepository.findById(1004L)).willReturn(java.util.Optional.of(restaurant));
     }
 
@@ -63,7 +64,7 @@ public class RestaurantServiceTest {
     @Test
     public void getRestaurants(){
         String region = "Seoul";
-        List<Restaurant> restaurants = restaurantService.getRestaurants(region);
+        List<Restaurant> restaurants = restaurantService.getRestaurants(region, 1L);
 
         Restaurant restaurant = restaurants.get(0);
 
@@ -79,11 +80,13 @@ public class RestaurantServiceTest {
         });
         Restaurant restaurant = Restaurant.builder()
                 .name("Beyoung")
+                .categoryId(1L)
                 .address("Seoul")
                 .build();
 
         Restaurant saved = Restaurant.builder()
                 .id(1234L)
+                .categoryId(1L)
                 .name("Beyoung")
                 .address("Seoul")
                 .build();
@@ -98,6 +101,7 @@ public class RestaurantServiceTest {
     public void updateRestaurants() {
         Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
+                .categoryId(1L)
                 .name("Bab zip")
                 .address("Seoul")
                 .build();

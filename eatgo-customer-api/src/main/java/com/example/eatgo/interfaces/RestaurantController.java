@@ -3,12 +3,8 @@ package com.example.eatgo.interfaces;
 import com.example.eatgo.domain.Restaurant;
 import com.example.eatgo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @CrossOrigin
@@ -20,9 +16,10 @@ public class RestaurantController {
 
     @GetMapping("/restaurants")
     public List<Restaurant> list(
-            @RequestParam("region") String region
+            @RequestParam("region") String region,
+            @RequestParam("category") Long categoryId
     ) {
-        List<Restaurant> restaurants = restaurantService.getRestaurants(region);
+        List<Restaurant> restaurants = restaurantService.getRestaurants(region, categoryId);
 
         return restaurants ;
     }

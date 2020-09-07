@@ -1,7 +1,6 @@
 package com.example.eatgo.service;
 
 import com.example.eatgo.domain.*;
-import com.example.eatgo.service.RestaurantService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -68,13 +67,14 @@ public class RestaurantServiceTest {
 //        Restaurant restaurant = new Restaurant(1004L, "bab zip", "Seoul");
         Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
+                .categoryId(1L)
                 .name("bab zip")
                 .address("Seoul")
                 .menuItems(new ArrayList<MenuItem>())
                 .reviews(new ArrayList<Review>())
                 .build();
         restaurants.add(restaurant);
-        given(restaurantRepository.findAllByAddressContaining("Seoul")).willReturn(restaurants);
+        given(restaurantRepository.findAllByAddressContainingAndCategoryId("Seoul", 1L)).willReturn(restaurants);
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
     }
 
@@ -103,7 +103,7 @@ public class RestaurantServiceTest {
     @Test
     public void getRestaurants(){
         String region = "Seoul";
-        List<Restaurant> restaurants = restaurantService.getRestaurants(region);
+        List<Restaurant> restaurants = restaurantService.getRestaurants(region, 1L);
 
         Restaurant restaurant = restaurants.get(0);
 
