@@ -19,11 +19,12 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @GetMapping("/restaurants")
-    public List<Restaurant> list() {
+    public List<Restaurant> list(
+            @RequestParam("region") String region
+    ) {
+        List<Restaurant> restaurants = restaurantService.getRestaurants(region);
 
-        List<Restaurant> restaurants = restaurantService.getRestaurants();
-
-        return restaurants ;
+        return restaurants;
     }
 
     @GetMapping("/restaurant/{id}")
@@ -39,16 +40,16 @@ public class RestaurantController {
         String address = resource.getAddress();
         Restaurant restaurant = restaurantService.addRestaurant(
                 Restaurant.builder()
-                    .name(name)
-                    .address(address)
-                    .build());
+                        .name(name)
+                        .address(address)
+                        .build());
 
         URI location = new URI("/restaurants/" + restaurant.getId());
         return ResponseEntity.created(location).body("{}");
     }
 
     @PatchMapping("/restaurants/{id}")
-    public String update(@PathVariable("id") Long id, @Valid @RequestBody Restaurant resource){
+    public String update(@PathVariable("id") Long id, @Valid @RequestBody Restaurant resource) {
         String name = resource.getName();
         String address = resource.getAddress();
         restaurantService.updateRestaurant(id, name, address);
