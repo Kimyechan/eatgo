@@ -32,4 +32,15 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public User updateUser(Long id, String email, String name, Long level) {
+        // TODO: restaurant 예외처리와 동일하게 구현하기
+        User user = userRepository.findById(id).orElse(null);
+
+        user.setEmail(email);
+        user.setName(name);
+        user.setLevel(level);
+
+        return user;
+    }
 }
