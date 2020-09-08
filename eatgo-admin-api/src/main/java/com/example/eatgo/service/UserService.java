@@ -4,21 +4,22 @@ import com.example.eatgo.domain.User;
 import com.example.eatgo.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         List<User> users = userRepository.findAll();
 
         return users;
@@ -28,6 +29,7 @@ public class UserService {
         User user = User.builder()
                 .email(email)
                 .name(name)
+                .level(1L )
                 .build();
 
         return userRepository.save(user);
@@ -41,6 +43,13 @@ public class UserService {
         user.setName(name);
         user.setLevel(level);
 
+        return user;
+    }
+
+    public User deactiveUser(Long id) {
+        // TODO: restaurant 예외처리와 동일하게 구현하기
+        User user = userRepository.findById(id).orElse(null);
+        user.deactive();
         return user;
     }
 }

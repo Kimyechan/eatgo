@@ -50,4 +50,10 @@ public class UserController {
 
         return "{}";
     }
+
+    @DeleteMapping("/users/{id}")
+    public String delete(@PathVariable("id") Long id){
+        userService.deactiveUser(id);
+        return null;
+    }
 }

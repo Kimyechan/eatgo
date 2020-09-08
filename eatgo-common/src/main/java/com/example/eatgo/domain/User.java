@@ -33,4 +33,12 @@ public class  User {
     public boolean isAdmin() {
         return level >= 100L;
     }
+
+    public boolean isActive() {
+        return this.level > 0;
+    }
+
+    public void deactive() {
+        this.level = 0L;
+    }
 }
