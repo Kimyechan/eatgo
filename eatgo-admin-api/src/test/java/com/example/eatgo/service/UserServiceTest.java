@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 public class UserServiceTest {
@@ -27,6 +28,7 @@ public class UserServiceTest {
         MockitoAnnotations.initMocks(this);
         userService = new UserService(userRepository);
     }
+
     @Test
     public void getUsers(){
         List<User> mockUsers = new ArrayList<>();
@@ -45,5 +47,22 @@ public class UserServiceTest {
         User user = users.get(0);
 
         assertThat(user.getName(), is("tester"));
+    }
+
+    @Test
+    public void addUser(){
+        String email = "admin@example.com";
+        String name = "Administrator";
+
+        User mockUser = User.builder()
+                .email(email)
+                .name(name)
+                .build();
+
+        given(userRepository.save(any())).willReturn(mockUser);
+
+        User user = userService.addUser(email, name);
+
+        assertThat(user.getName(), is(name));
     }
 }
