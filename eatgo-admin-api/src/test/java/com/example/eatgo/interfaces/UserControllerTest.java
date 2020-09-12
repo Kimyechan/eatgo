@@ -48,7 +48,7 @@ public class UserControllerTest {
 
         given(userService.getUsers()).willReturn(users);
         mvc.perform(get("/users"))
-                .andExpect(status().isOk())
+                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("tester")));
     }
 

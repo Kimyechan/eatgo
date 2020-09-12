@@ -1,5 +1,6 @@
 package com.example.eatgo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,14 @@ public class  User {
 
     public void deactive() {
         this.level = 0L;
+    }
+
+    @JsonIgnore
+    public String getAccessToken() {
+        if(password == null){
+            return "";
+        }
+
+        return password.substring(0, 10);
     }
 }
