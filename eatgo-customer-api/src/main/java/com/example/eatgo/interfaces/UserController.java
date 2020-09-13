@@ -28,12 +28,6 @@ public class UserController {
         String email = resource.getEmail();
         String name = resource.getName();
         String password = resource.getPassword();
-//        User user = User.builder()
-//                .id(1004L)
-//                .email(email)
-//                .name(name)
-//                .password(password)
-//                .build();
 
         User user = userService.registerUser(email, name, password);
 
