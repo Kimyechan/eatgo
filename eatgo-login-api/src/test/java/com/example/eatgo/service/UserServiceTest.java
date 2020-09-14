@@ -2,8 +2,6 @@ package com.example.eatgo.service;
 
 import com.example.eatgo.domain.User;
 import com.example.eatgo.domain.UserRepository;
-import com.example.eatgo.interfaces.UserService;
-import com.example.eatgo.service.EmailExistedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,29 +32,41 @@ public class UserServiceTest {
         userService = new UserService(userRepository, passwordEncoder);
     }
 
+
     @Test
-    public void registerUser(){
+    public void authenticateWithValidAttribute(){
         String email = "tester@example.com";
-        String name = "Tester";
         String password = "test";
 
-        userService.registerUser(email, name, password);
+        User mockUser = User.builder().email(email).build();
 
-        verify(userRepository).save(any());
+        given(userRepository.findByEmail(email)).willReturn(Optional.of(mockUser));
+        given(passwordEncoder.matches(any(), any())).willReturn(true);
+
+        User user = userService.authenticate(email, password);
+
+        assertThat(user.getEmail(), is(email));
     }
 
-    @Test(expected= EmailExistedException.class)
-    public void registerUserWithExistedEmail(){
-        String email = "tester@example.com";
-        String name = "Tester";
+    @Test(expected = EmailNotExistedException.class)
+    public void authenticateWithNotExistedEmail(){
+        String email = "x@example.com";
         String password = "test";
+
+        given(userRepository.findByEmail(email)).willReturn(Optional.empty());
+        userService.authenticate(email, password);
+    }
+
+    @Test(expected = PasswordWrongException.class)
+    public void authenticateWithWrongPassword(){
+        String email = "test@example.com";
+        String password = "x";
 
         User mockUser = User.builder().build();
 
         given(userRepository.findByEmail(email)).willReturn(Optional.of(mockUser));
+        given(passwordEncoder.matches(any(), any())).willReturn(false);
 
-        userService.registerUser(email, name, password);
-
-        verify(userRepository, never()).save(any());
+        userService.authenticate(email, password);
     }
 }

@@ -3,8 +3,6 @@ package com.example.eatgo.interfaces;
 import com.example.eatgo.domain.User;
 import com.example.eatgo.domain.UserRepository;
 import com.example.eatgo.service.EmailExistedException;
-import com.example.eatgo.service.EmailNotExistedException;
-import com.example.eatgo.service.PasswordWrongException;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,7 +27,7 @@ public class UserService {
     public User registerUser(String email, String name, String password) {
         Optional<User> existed = userRepository.findByEmail(email);
 
-        if(existed.isPresent()) {
+        if (existed.isPresent()) {
             // TODO: 예외발생
             throw new EmailExistedException(email);
         }
@@ -44,14 +42,5 @@ public class UserService {
                 .build();
 
         return userRepository.save(user);
-    }
-
-    public User authenticate(String email, String password) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EmailNotExistedException(email));
-
-        if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new PasswordWrongException();
-        }
-        return user;
     }
 }

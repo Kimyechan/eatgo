@@ -3,6 +3,7 @@ package com.example.eatgo.interfaces;
 import com.example.eatgo.domain.User;
 import com.example.eatgo.service.EmailNotExistedException;
 import com.example.eatgo.service.PasswordWrongException;
+import com.example.eatgo.service.UserService;
 import com.example.eatgo.utils.JwtUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;

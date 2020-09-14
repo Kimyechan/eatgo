@@ -1,6 +1,7 @@
 package com.example.eatgo.interfaces;
 
 import com.example.eatgo.domain.User;
+import com.example.eatgo.service.UserService;
 import com.example.eatgo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
