@@ -2,8 +2,6 @@ package com.example.eatgo.service;
 
 import com.example.eatgo.domain.User;
 import com.example.eatgo.domain.UserRepository;
-import com.example.eatgo.interfaces.UserService;
-import com.example.eatgo.service.EmailExistedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

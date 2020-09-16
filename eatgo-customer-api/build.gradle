@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'mysql:mysql-connector-java'
     implementation 'com.h2database:h2'
 
     implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
@@ -42,5 +44,5 @@ dependencies {
 }
 
 //implementation project error solve
-bootJar { enabled = false }
-jar { enabled = true }
+//bootJar { enabled = false }
+//jar { enabled = true }
